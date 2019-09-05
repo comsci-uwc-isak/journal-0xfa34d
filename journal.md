@@ -10,6 +10,7 @@ __Day 2__:
 - bash scripting
 
 __Day 3__:
+
 We went over basic network topologies by size and connections. After reading an article about this we did an exercise on the whiteboard to †est our knowledge.
 
 For practising what we just learnt we connected to the Computer Science class raspberry pies via ssh like this:
