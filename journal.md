@@ -10,7 +10,7 @@ __Day 2__:
 
 We had the task to make a bash script to calculate the value of `E`. We had to use conditionals, loops, etc. Here is my solution to the problem:
 
-![404 not found](/images/bash.png)
+![404 not found](/images/day_2.png)
 
 __Day 3__:
 
