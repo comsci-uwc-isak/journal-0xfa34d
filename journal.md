@@ -9,29 +9,8 @@ __Day 1__:
 __Day 2__:
 
 We had the task to make a bash script to calculate the value of `E`. We had to use conditionals, loops, etc. Here is my solution to the problem:
-```lang=bash
-stat=()
-his=(0 0 0 0 0 0)
 
-read -p "Input x: " x
-
-for (( i = 0; i < x; i++ )); do
-    read -p "(0 ≤ int ≤ 5) stat[$i] = " stat[i]
-done
-
-values="${stat[@]}"
-
-for value in $values; do
-    ((sum=his[$value]+1))
-    his[$value]=$sum
-done
-
-((E=his[1] + 2*his[2] + 3*his[3] + 4*his[4] + 5*his[5]))
-
-echo "stat: ${stat[*]}"
-echo "his: ${his[*]}"
-echo "E: $E"
-```
+![404 not found](/images/bash.png)
 
 __Day 3__:
 
