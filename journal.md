@@ -29,3 +29,7 @@ __Day 5__:
 
 We setup a VPN (not to be confused with a VNC, which is used for remote desktop!) to connect securely to our Raspberry Pi. We followed the tutorial at http://www.pivpn.io to install OpenVPN with the command `curl -L https://install.pivpn.io | bash
 `. Then we created an OpenVPN (.ovpn) profile with the command `pivpn add`. We tried to connect with the VPN client TunnelBlick although it did not work since there was an error with the TLS handshake. Now we are going to try using an RSA key pair instead of ECC, which is less supported due to being recently developed and adopted in the criptographic community.
+
+__Day 6__:
+
+We reconfigured our previous OpenVPN installation using an RSA of 1024 bit (we did not use a larger size key since the CPU power of the raspberry pi is limited, hence it would have taken a lot of time to generate the prime numbers for the key pair). The error was similar, although this time, according to Tunnelblick's —a Mac VPN client— log the server was constantly resetting the connection. We reinstalled the VPN server again by using TCP, since we used UDP all the time, this may be a networking/firewall issue. Again, the error returned was the same: we still could not connect. For the rest of the class I worked on a couple of challenges @ picoCTF 2018.
