@@ -33,3 +33,23 @@ We setup a VPN (not to be confused with a VNC, which is used for remote desktop!
 __Day 6__:
 
 We reconfigured our previous OpenVPN installation using an RSA of 1024 bit (we did not use a larger size key since the CPU power of the raspberry pi is limited, hence it would have taken a lot of time to generate the prime numbers for the key pair). The error was similar, although this time, according to Tunnelblick's —a Mac VPN client— log the server was constantly resetting the connection. We reinstalled the VPN server again by using TCP, since we used UDP all the time, this may be a networking/firewall issue. Again, the error returned was the same: we still could not connect. For the rest of the class I worked on a couple of challenges @ picoCTF 2018.
+
+__Day 7__:
+
+Since I had a bit of experience working with symmetric key cryptography, I decided to continue with my learning of assembly language for the purpose of reverse engineering. I learnt about the general-purpose registers such as EAX and EBX and the basic ones: EBP (base pointer) and ESP (stack pointer). I used `nasm` to assemble a simple script which output text to the console and `ld` to link the generated object file and create an executable. Currently I am trying to answer the question _What does asm0(0xc9,0xb0) return?_ regarding the following program:
+`assembly
+.intel_syntax noprefix
+.bits 32
+
+.global asm0
+
+asm0:
+	push	ebp
+	mov	ebp,esp
+	mov	eax,DWORD PTR [ebp+0x8]
+	mov	ebx,DWORD PTR [ebp+0xc]
+	mov	eax,ebx
+	mov	esp,ebp
+	pop	ebp
+	ret
+`
