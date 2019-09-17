@@ -37,7 +37,7 @@ We reconfigured our previous OpenVPN installation using an RSA of 1024 bit (we d
 __Day 7__:
 
 Since I had a bit of experience working with symmetric key cryptography, I decided to continue with my learning of assembly language for the purpose of reverse engineering. I learnt about the general-purpose registers such as EAX and EBX and the basic ones: EBP (base pointer) and ESP (stack pointer). I used `nasm` to assemble a simple script which output text to the console and `ld` to link the generated object file and create an executable. Currently I am trying to answer the question _What does asm0(0xc9,0xb0) return?_ regarding the following program:
-`assembly
+```assembly
 .intel_syntax noprefix
 .bits 32
 
@@ -52,4 +52,4 @@ asm0:
 	mov	esp,ebp
 	pop	ebp
 	ret
-`
+```
