@@ -53,3 +53,33 @@ asm0:
 	pop	ebp
 	ret
 ```
+
+__Day 8__:
+
+I continued my investigation regarding the above program. For that, I started reading the paper _PC Assembly Language_ available at https://zoo.cs.yale.edu/classes/cs422/2014fa/readings/pcasm-book.pdf. I familiared with concepts such as the stack, the CPU registers, etc. which are essential to the low-level functioning of the computer. I decided to study and work with the x86 (32 bit) architecture (specifically the Intel CPU 80386) for its the most common one when it comes to starting with assembly/reverse engineering. For the hands-on lab I decided to write the simplest program one can think of in the C language:
+```c
+int main() {
+	return 0;
+}
+```
+
+I compiled it with `gcc -g init.c`. Said flag includes in the binary extra debugging information, which will aid in the static analysis of the binary. To see the machine code that said script produced I ran the command `objdump -M intel -D init | grep -A 5 main\>`. The output of said command which disassembles the `init` binary and uses Intel syntax (instead of the default AT&T) is the following:
+```assembly
+080483ed <main>:
+ 80483ed:	55                   	push   ebp
+ 80483ee:	89 e5                	mov    ebp,esp
+ 80483f0:	b8 00 00 00 00       	mov    eax,0x0
+ 80483f5:	5d                   	pop    ebp
+ 80483f6:	c3                   	ret
+```
+
+The above output is the machine code (the ones and zeros the bare 80386 CPU understands). The first column represents the memory addresses —in hexadecimal format— of each of the different instructions (there is one per line). As we can see, the first memory address is `0x80483ed`; the instruction `0x55` which corresponds to the mnemonic `push ebp` is located there. As we can tell by its opcode (`0x55`), this instruction is 1 byte (8 bits) long. Thus, the next instruction begins 1 byte after it, at `0x80483ee`, and so on and so forth. The guide by the University of Virginia Computer Science department found at https://www.cs.virginia.edu/~evans/cs216/guides/x86.html helped me understand the C calling convention. I focused on the callee rules which are the ones of interest in this case, since we are not calling another subroutine (or function), we are not the callers in this case therefore we do not need to worry about those conventions for now. The instruction `mov eax,0x0` sets the subroutine's return value by moving the byte `0x0` (0 in decimal) to the register `EAX`, which conventionally contains the return code. The second-to-last instruction restores the value of the original pushed `EBP`. Finally, `ret` returns to the caller. This opcode finds and removes the appropriate return address from the stack.
+
+After doing researching for a couple hours, the program described in day 6 finally made sense. The critical instructions are the following (the rest just follows the callee rules):
+```assembly
+	mov	eax,DWORD PTR [ebp+0x8]
+	mov	ebx,DWORD PTR [ebp+0xc]
+	mov	eax,ebx
+```
+
+The first line copies the value residing at `EBP` + 1 byte to EAX. Said value is `0xc9`, since it is the first argument (normally located at `EBP+0x8`) of the function called. Next, the second argument, found at `EBP+0x8` which equals `EBP+0x8+0x4` (that is, the first argument plus 4 bytes) copies `0xb0` to EBX. Afterwards EBX is moved to EAX, so the return code is `0xb0`!
