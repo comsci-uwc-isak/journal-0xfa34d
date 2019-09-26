@@ -83,3 +83,10 @@ After doing researching for a couple hours, the program described in day 6 final
 ```
 
 The first line copies the value residing at `EBP` + 1 byte to EAX. Said value is `0xc9`, since it is the first argument (normally located at `EBP+0x8`) of the function called. Next, the second argument, found at `EBP+0x8` which equals `EBP+0x8+0x4` (that is, the first argument plus 4 bytes) copies `0xb0` to EBX. Afterwards EBX is moved to EAX, so the return code is `0xb0`!
+
+
+__Day 9__:
+
+Since today's class was about relational databases and I had some experience on that field (mainly MySQL and MariaDB), I decided to use my class time for working on my CS EE. I have learnt about Man-in-the-middle (MITM) attacks, which consists of a third party intercepting the network connection between a client and a server. In the context of a LAN, this is usually performed via ARP spoofing, which is a technique that involves sending maliciously crafted packets to the network so that the switch/router in place sends the packets destined to the legitimate client to the third party.
+
+After that I continued my research and explanation of the Tor network, focusing on its characteristics of P2P (decentralised) network and its robust cryptographic scheme of 3 layers (hence the name, The __Onion__ Router).
