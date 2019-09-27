@@ -90,3 +90,27 @@ __Day 9__:
 Since today's class was about relational databases and I had some experience on that field (mainly MySQL and MariaDB), I decided to use my class time for working on my CS EE. I have learnt about Man-in-the-middle (MITM) attacks, which consists of a third party intercepting the network connection between a client and a server. In the context of a LAN, this is usually performed via ARP spoofing, which is a technique that involves sending maliciously crafted packets to the network so that the switch/router in place sends the packets destined to the legitimate client to the third party.
 
 After that I continued my research and explanation of the Tor network, focusing on its characteristics of P2P (decentralised) network and its robust cryptographic scheme of 3 layers (hence the name, The __Onion__ Router).
+
+__Day 10__:
+
+Today I decided to investigate about accomplishing SQL injection even when `mysql[i?]_real_escape_string` is santising the input. After reading the documentation in php.net I did not find anything relevant to security concerns except that the characters '%' and '\_' are not parsed, ie escaped. So I decided to google about if SQLi is possible with the given statement. I came up to [this](https://stackoverflow.com/questions/5741187/sql-injection-that-gets-around-mysql-real-escape-string/12118602#12118602) detailed thread comment which claims that "there is a way to get around mysql_real_escape_string()". The attack or injection is the following:
+
+```php
+mysql_query('SET NAMES gbk');
+$var = mysql_real_escape_string("\xbf\x27 OR 1=1 /*");
+mysql_query("SELECT * FROM test WHERE name = '$var' LIMIT 1");
+```
+
+The first line is critical to the following exploitation, for it sets a special character set (gbk) on the server which will eventually decode the hexadecimal string 0x27 which refers to the ASCII literal `'`. This character is what triggers the injection since it will close the single quote opened for `$var` and therefore will insert a trivial SQL statement. Because of the nature of the configured character set the executed statement results to: `縗' OR 1=1 /*`
+
+As we have seen, this attack requires us to manually set a specific character enconding on the backend server. Since this is not possible given the provided PHP code (that is, we do not have the ability to control such parameter), a SQL injection is not possible in this code fragment.
+
+The comment author concludes saying that to be safe we should not use a vulnerable character set like the one described previously. UTF8, ascii, and latin1 are safe options and normally the default of many operating systems and frameworks. Either way, the recommended way to prevent SQL injection by the developer and infosec communities is to use PHP `prepare` statements like this:
+```php
+$stmt = $pdo->prepare('SELECT * FROM table WHERE YEAR(created) = ? AND MONTH(created) = ?');
+if ($stmt->execute([$_GET['year'], $_GET['month']])) {
+    $posts = $stmt->fetchAll(\PDO::FETCH_ASSOC);
+}
+```
+
+Code sample taken from [here](https://paragonie.com/blog/2015/05/preventing-sql-injection-in-php-applications-easy-and-definitive-guide).
