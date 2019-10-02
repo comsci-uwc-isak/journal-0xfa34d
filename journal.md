@@ -114,3 +114,25 @@ if ($stmt->execute([$_GET['year'], $_GET['month']])) {
 ```
 
 Code sample taken from [here](https://paragonie.com/blog/2015/05/preventing-sql-injection-in-php-applications-easy-and-definitive-guide).
+
+__Day 11__:
+
+We learnt about recursion and we were supossed to write a program related with series analysis with said technique. Specifically, we had to find the mean of x series of elements in an array. The x was labeled level. I came up with an iterative, faster solution by using a formula to break up the whole array into the desired number of chunks. Here it is:
+
+```python
+ARR    = [4, 5, 8, 29, 85, 4, 2, 90]
+LEVELS = 1
+RESULT = []
+
+offset = int(len(ARR) / 2**LEVELS)
+chunks = range(0, len(ARR), offset)
+
+print('Offset:', offset)
+
+for chunk in chunks:
+    print('Chunk:', chunk)
+    numbers = ARR[chunk:chunk+offset]
+    RESULT.append(sum(numbers) / len(numbers))
+
+print(RESULT)
+```
