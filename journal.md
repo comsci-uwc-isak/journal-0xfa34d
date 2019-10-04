@@ -136,3 +136,7 @@ for chunk in chunks:
 
 print(RESULT)
 ```
+
+__Day 12__:
+
+Today I have been working on my Criterion A of the Internal Assessment. Since I finished my product before working on the different criteria, I rewrote the explanation in past tense so that the examiner does not have trouble understanding the grammar.
