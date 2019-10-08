@@ -140,3 +140,27 @@ print(RESULT)
 __Day 12__:
 
 Today I have been working on my Criterion A of the Internal Assessment. Since I finished my product before working on the different criteria, I rewrote the explanation in past tense so that the examiner does not have trouble understanding the grammar.
+
+__Day 13__:
+
+To get our tests back we needed to write a program to calculate the mean, median, Q1, Q3, and IQR. Here is mine:
+
+```python
+ARRAY = [21, 33, 26, 39, 28, 32.5, 18.5, 27, 31.5, 29, 26.5, 31.5, 24, 35.5,
+         22.5, 25, 25.5, 19]
+ARRAY.sort()
+
+half = len(ARRAY)//2
+
+mean = sum(ARRAY) / len(ARRAY)
+median = ARRAY[half]
+Q1 = ARRAY[:half][half//2]
+Q3 = ARRAY[half:][half//2]
+IQR = Q3 - Q1
+
+print('Mean:', mean)
+print('Median:', median)
+print('Q1:', Q1)
+print('Q3:', Q3)
+print('IQR:', IQR)
+```
