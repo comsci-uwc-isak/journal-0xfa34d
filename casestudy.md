@@ -9,7 +9,7 @@ Case study questions
 - <ins>What is a Merkle tree?</ins> Tree in which every leaf node is labelled with the hash of a data block. Used to prove inclusivity in large datasets and majority of blockchain applications
 
 
-Individual question
+Individual questions
 -----
 <ins>Merkle proof</ins>:
 - Used to decide upon the following factors:
