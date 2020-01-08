@@ -1,4 +1,5 @@
-# Case study questions
+Case study questions
+======
 
 - <ins>Who/What changes the bitcoin difficulty?</ins> Magic...
 - <ins>How many miners (i.e. processing power) are currently needed to run the 51% attack?</ins> TODO
@@ -7,8 +8,9 @@
 - <ins>Distribution of bitcoin owners?</ins> 39% owner own 98.3% (1% of population owns 50% of global wealth)
 - <ins>What is a Merkle tree?</ins> Tree in which every leaf node is labelled with the hash of a data block. Used to prove inclusivity in large datasets and majority of blockchain applications
 
-# Individual question
 
+Individual question
+-----
 <ins>Merkle proof</ins>:
 - Used to decide upon the following factors:
   - If the data belongs in the merkle tree
